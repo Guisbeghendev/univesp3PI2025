@@ -1,0 +1,42 @@
+/*GERAL */
+/* Card base reutilizável */
+.card-box {
+    @apply bg-white rounded-lg shadow-xl border-l-4 border-verde w-full max-w-xl p-2;
+}
+
+/* Título padrão reutilizável */
+.titulo-principal {
+    @apply text-3xl font-bold text-verde text-center py-6;
+}
+
+/* Botão padrão reutilizável */
+.btn-padrao {
+    @apply inline-block px-4 py-2 bg-verde text-white font-semibold rounded hover:bg-dourado1 transition;
+}
+
+
+/* DASHBOARD */
+/* Card dashboard */
+.dash-box {
+    @apply bg-white rounded-lg w-full;
+}
+
+/* Card dashboard partials */
+.partials-box {
+    @apply bg-white rounded-lg shadow-xl border-l-4 border-verde w-full p-4;
+}
+
+/* Card titulo reutilizável */
+.titulo-box {
+    @apply bg-cinza1 rounded-lg shadow-xl border-l-4 w-full max-w-xl p-2;
+}
+
+/* Botão principal padrão */
+.btn-primary {
+    @apply bg-verde text-white px-4 py-2 rounded hover:bg-green-700 transition;
+}
+
+/* Link menu estilizado */
+.link-menu {
+    @apply text-dourado1 font-bold text-lg hover:text-verde;
+}
