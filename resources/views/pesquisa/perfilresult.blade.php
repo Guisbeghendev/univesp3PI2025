@@ -64,21 +64,25 @@
                 </div>
 
                 @if(auth()->id() != $perfil->usuario->id)
-                <div class="mt-6 text-center space-x-4">
-                    <!-- Iniciar Chat -->
-                    <a href="{{ route('chat.iniciar', ['id' => $perfil->usuario->id]) }}" class="btn-padrao">
-                        Iniciar Chat
-                    </a>
+                    <div class="mt-6 text-center space-x-4">
+                        <!-- Iniciar Chat -->
+                        @if($perfil->usuario->id) <!-- Verificação do id -->
+                        <a href="{{ route('chat.iniciar', ['id' => $perfil->usuario->id]) }}" class="btn-padrao">
+                            Iniciar Chat
+                        </a>
+                        @else
+                            <p>Não foi possível iniciar o chat.</p>
+                        @endif
 
-                    <!-- Iniciar Contrato -->
-                    <form action="{{ route('contratos.criar') }}" method="POST" class="inline">
-                        @csrf
-                        <input type="hidden" name="destinatario_id" value="{{ $perfil->usuario->id }}">
-                        <button type="submit" class="btn-padrao">
-                            Iniciar Contrato
-                        </button>
-                    </form>
-                </div>
+                        <!-- Iniciar Contrato -->
+                        <form action="{{ route('contratos.criar') }}" method="POST" class="inline">
+                            @csrf
+                            <input type="hidden" name="destinatario_id" value="{{ $perfil->usuario->id }}">
+                            <button type="submit" class="btn-padrao">
+                                Iniciar Contrato
+                            </button>
+                        </form>
+                    </div>
                 @endif
 
                 <div class="mt-6 text-center space-x-4">
@@ -87,7 +91,6 @@
                         Voltar aos Resultados
                     </a>
                 </div>
-
 
             </div>
 

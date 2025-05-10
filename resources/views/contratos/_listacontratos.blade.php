@@ -1,6 +1,6 @@
 @foreach ($contratos as $contrato)
     @php
-        $outroUsuario = auth()->id() === $contrato->aluno_id ? $contrato->Profissional : $contrato->aluno;
+        $outroUsuario = auth()->id() === $contrato->aluno_id ? $contrato->profissional : $contrato->aluno;
         $isSelected = isset($contratoSelecionado) && $contratoSelecionado->id === $contrato->id;
     @endphp
 

@@ -18,7 +18,7 @@ class ContratacaoController extends Controller
         $contratos = Contratacao::with(['aluno', 'profissional'])
             ->where(function ($query) use ($userId) {
                 $query->where('aluno_id', $userId)
-                      ->orWhere('profissional_id', $userId);
+                    ->orWhere('profissional_id', $userId);
             })
             ->get();
 
@@ -79,7 +79,7 @@ class ContratacaoController extends Controller
         ]);
 
         return redirect()->route('contratos.index', ['contrato_id' => $contrato->id])
-                         ->with('success', 'Contrato iniciado com sucesso.');
+            ->with('success', 'Contrato iniciado com sucesso.');
     }
 
     // Exibe os detalhes do contrato
@@ -166,8 +166,8 @@ class ContratacaoController extends Controller
 
         // Verifica se já existe uma curtida do usuário
         $curtidaExistente = Curtida::where('profissional_id', $userId)
-                                   ->where('aluno_id', $contrato->aluno_id)
-                                   ->first();
+            ->where('aluno_id', $contrato->aluno_id)
+            ->first();
 
         if ($curtidaExistente) {
             // Se já existe, remove a curtida

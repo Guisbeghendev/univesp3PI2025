@@ -16,7 +16,7 @@ class Contratacao extends Model
 
     protected $fillable = [
         'aluno_id',
-        'Profissional_id',
+        'profissional_id',  // Corrigido para o nome correto da coluna
         'mensagem',
         'status',
         'data_contratacao',
@@ -37,9 +37,9 @@ class Contratacao extends Model
     /**
      * Relacionamento com o Profissional (usuário contratado)
      */
-    public function Profissional()
+    public function profissional()
     {
-        return $this->belongsTo(User::class, 'Profissional_id');
+        return $this->belongsTo(User::class, 'profissional_id'); // Corrigido para o nome correto da coluna
     }
 
     /**

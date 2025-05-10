@@ -14,10 +14,10 @@ use App\Models\Avaliacao;
 
 class ProfileController extends Controller
 {
-    // Método para exibir as informações do perfil do usuário
     public function show(): View
     {
         $user = User::with('perfil')->findOrFail(Auth::id());
+
         $curtidasRecebidas = \App\Models\Curtida::with('profissional.perfil')
             ->where('aluno_id', $user->id)
             ->get();
@@ -29,7 +29,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    // Método para exibir o perfil de outro usuário
     public function verPerfilResultado($id): View
     {
         $usuario = User::with('perfil')->findOrFail($id);
@@ -48,7 +47,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    // Método para iniciar um chat com outro usuário
     public function iniciarChat($id): RedirectResponse
     {
         if (!Auth::check()) {
@@ -81,7 +79,6 @@ class ProfileController extends Controller
         return redirect()->route('chat.index', ['conversa_id' => $conversa->id]);
     }
 
-    // Método para exibir a página de edição da conta
     public function edit(Request $request): View
     {
         $user = $request->user();
@@ -94,7 +91,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    // Método para atualizar informações da conta
     public function update(Request $request): RedirectResponse
     {
         $request->validate([
@@ -108,7 +104,6 @@ class ProfileController extends Controller
         return Redirect::route('perfil.edit')->with('status', 'profile-updated');
     }
 
-    // Método para excluir a conta
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
@@ -125,7 +120,6 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    // Método para exibir a edição de detalhes do perfil
     public function editPerfil(): View
     {
         $user = Auth::user();
@@ -137,7 +131,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    // Método para atualizar os detalhes do perfil
     public function atualizarPerfil(Request $request): RedirectResponse
     {
         $user = Auth::user();
@@ -152,10 +145,15 @@ class ProfileController extends Controller
             'foto_perfil' => 'nullable|image|max:2048',
         ]);
 
+        if ($request->has('nome')) {
+            $data['nome'] = $request->nome;
+        }
+
         if ($request->hasFile('foto_perfil')) {
             if ($perfil->foto_perfil) {
                 Storage::disk('public')->delete($perfil->foto_perfil);
             }
+
             $data['foto_perfil'] = $request->file('foto_perfil')->store('fotos_perfil', 'public');
         }
 

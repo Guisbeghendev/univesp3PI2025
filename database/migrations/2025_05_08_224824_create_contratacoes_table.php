@@ -14,7 +14,7 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger('aluno_id');
-            $table->unsignedBigInteger('profissional_id');
+            $table->unsignedBigInteger('profissional_id'); // Certifique-se de que esse campo não seja nullable
 
             $table->text('mensagem')->nullable();
             $table->enum('status', ['pendente', 'aceita', 'recusada', 'finalizada'])->default('pendente');

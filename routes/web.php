@@ -8,15 +8,14 @@ use App\Http\Controllers\ContratacaoController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\CurtidaController;
+use App\Http\Controllers\SaudeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\SaudeController;
-
 
 /*
-|--------------------------------------------------------------------------
+|----------------------------------------------------------------------
 | Web Routes
-|--------------------------------------------------------------------------
+|----------------------------------------------------------------------
 |
 | Aqui estão registradas todas as rotas web para a aplicação.
 |
@@ -43,9 +42,9 @@ Route::get('/meu-perfil', [ProfileController::class, 'show'])
 Route::middleware('auth')->group(function () {
 
     /*
-    |----------------------------------------------------------------------
-    | Perfil
-    |----------------------------------------------------------------------
+    |----------------------------------------------------------------------|
+    | Perfil                                                                 |
+    |----------------------------------------------------------------------|
     */
     Route::prefix('perfil')->name('perfil.')->group(function () {
         // Exibir o perfil
@@ -65,32 +64,29 @@ Route::middleware('auth')->group(function () {
 
         // Excluir conta
         Route::delete('/excluir', [ProfileController::class, 'destroy'])->name('destroy');
-
     });
 
-
-
     /*
-    |--------------------------------------------------------------------------
-    | Dashboard
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Dashboard                                                               |
+    |--------------------------------------------------------------------------|
     */
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['verified'])
         ->name('dashboard');
 
     /*
-    |--------------------------------------------------------------------------
-    | Pesquisa
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Pesquisa                                                                |
+    |--------------------------------------------------------------------------|
     */
     Route::get('/pesquisa', [PesquisaController::class, 'pesquisar'])->name('pesquisa.resultados');
     Route::get('/perfil-resultado/{id}', [ProfileController::class, 'verPerfilResultado'])->name('perfil.resultado');
 
     /*
-    |--------------------------------------------------------------------------
-    | Chat
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Chat                                                                    |
+    |--------------------------------------------------------------------------|
     */
     Route::prefix('chat')->name('chat.')->group(function () {
         Route::get('/', [ChatController::class, 'index'])->name('index');
@@ -101,9 +97,9 @@ Route::middleware('auth')->group(function () {
     });
 
     /*
-    |--------------------------------------------------------------------------
-    | Contratos
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Contratos                                                               |
+    |--------------------------------------------------------------------------|
     */
     Route::prefix('contratos')->name('contratos.')->group(function () {
         Route::get('/', [ContratacaoController::class, 'index'])->name('index');
@@ -116,9 +112,9 @@ Route::middleware('auth')->group(function () {
     });
 
     /*
-    |--------------------------------------------------------------------------
-    | Agenda
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Agenda                                                                  |
+    |--------------------------------------------------------------------------|
     */
     Route::prefix('agenda')->name('agenda.')->group(function () {
         Route::get('/', [AgendaController::class, 'index'])->name('index');
@@ -132,9 +128,9 @@ Route::middleware('auth')->group(function () {
     });
 
     /*
-    |--------------------------------------------------------------------------
-    | Avaliações
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Avaliações                                                              |
+    |--------------------------------------------------------------------------|
     */
     Route::prefix('avaliar')->name('avaliar.')->group(function () {
         Route::get('/', [AvaliacaoController::class, 'index'])->name('index');
@@ -145,19 +141,19 @@ Route::middleware('auth')->group(function () {
     });
 
     /*
-    |--------------------------------------------------------------------------
-    | Curtidas
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------|
+    | Curtidas                                                                |
+    |--------------------------------------------------------------------------|
     */
     Route::prefix('curtidas')->name('curtidas.')->group(function () {
         Route::get('/', [CurtidaController::class, 'index'])->name('index');
         Route::post('/curtir/{alunoId}', [CurtidaController::class, 'curtir'])->name('curtir');
     });
 
-        /*
-    |--------------------------------------------------------------------------
-    | Saúde e Bem-Estar (Chave de Acesso)
-    |--------------------------------------------------------------------------
+    /*
+    |--------------------------------------------------------------------------|
+    | Saúde e Bem-Estar (Chave de Acesso)                                      |
+    |--------------------------------------------------------------------------|
     */
     Route::prefix('saude')->name('saude.')->group(function () {
         Route::get('/', [SaudeController::class, 'index'])->name('index');

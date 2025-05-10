@@ -11,7 +11,7 @@ class CreateCurtidasTable extends Migration
         Schema::create('curtidas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('aluno_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('Profissional_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('profissional_id')->constrained('users')->onDelete('cascade');  // Corrigido para 'profissional_id'
             $table->timestamp('data_curtida')->nullable();
             $table->timestamps();
         });

@@ -13,7 +13,7 @@ class Curtida extends Model
 
     protected $fillable = [
         'aluno_id',
-        'Profissional_id',
+        'profissional_id',  // Corrigido para 'profissional_id' com 'p' minúsculo
         'data_curtida',
     ];
 
@@ -24,8 +24,8 @@ class Curtida extends Model
         return $this->belongsTo(User::class, 'aluno_id');
     }
 
-    public function Profissional()
+    public function profissional()  // Corrigido para 'profissional'
     {
-        return $this->belongsTo(User::class, 'Profissional_id');
+        return $this->belongsTo(User::class, 'profissional_id');  // Corrigido para 'profissional_id'
     }
 }

@@ -20,9 +20,10 @@ class Perfil extends Model
         'biografia',
         'idiomas',
         'foto_perfil',
+        // Remover 'nome' pois a tabela 'perfis' não tem essa coluna
     ];
 
-    public $timestamps = true; // Permite que o Laravel gerencie os timestamps (created_at, updated_at)
+    public $timestamps = true;
 
     public function usuario()
     {

@@ -10,6 +10,7 @@ class CreatePerfisTable extends Migration
     {
         Schema::create('perfis', function (Blueprint $table) {
             $table->id();
+            // Foreign key constraint for usuario_id
             $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
             $table->enum('tipo', ['aluno', 'profissional']);
             $table->string('cidade')->nullable();

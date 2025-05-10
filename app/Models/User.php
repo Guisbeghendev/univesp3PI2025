@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOne; // Importando o tipo de relacionamento correto
-use App\Models\DadosSaude; // Importando a classe DadosSaude
 use Illuminate\Database\Eloquent\Relations\HasMany; // Importando HasMany
 
 /**
@@ -33,7 +32,7 @@ class User extends Authenticatable
 
     public function perfil(): HasOne
     {
-        return $this->hasOne(Perfil::class, 'usuario_id');
+        return $this->hasOne(Perfil::class, 'usuario_id'); // Certifique-se de que a chave estrangeira é 'usuario_id'
     }
 
     public function curtidasFeitas(): HasMany
@@ -86,8 +85,5 @@ class User extends Authenticatable
         return $this->hasMany(Mensagem::class, 'destinatario_id');
     }
 
-    public function dadosSaude(): HasOne
-    {
-        return $this->hasOne(DadosSaude::class, 'user_id'); // Explicitamente declara a chave estrangeira 'user_id'
-    }
+    // Removido o relacionamento com DadosSaude
 }

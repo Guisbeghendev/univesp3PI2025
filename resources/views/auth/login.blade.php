@@ -2,20 +2,18 @@
 
 @section('title', 'Login')
 
-
-{{-- conteudo da pagina --}}
+{{-- conteúdo da página --}}
 @section('content')
 
-    {{-- flexbox para centralizar o conteudo --}}
     <div class="w-full flex justify-center items-center py-10">
 
-        {{-- card comum que envolve todas as paginas --}}
+        {{-- card comum que envolve todas as páginas --}}
         <div class="card-box">
 
-            {{-- titulo da pagina --}}
+            {{-- título da página --}}
             <h2 class="titulo-principal">Login</h2>
 
-            {{--container que encapsula o conteudo --}}
+            {{-- container que encapsula o conteúdo --}}
             <div class="container">
 
                 <div class="mb-4">
@@ -33,33 +31,33 @@
                     <!-- Tipo -->
                     <div class="mb-4">
                         <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo de usuário</label>
-                        <select name="tipo" id="tipo" required class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                        <select name="tipo" id="tipo" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                             <option value="">Selecione...</option>
                             <option value="aluno" {{ old('tipo') == 'aluno' ? 'selected' : '' }}>Aluno</option>
                             <option value="Profissional" {{ old('tipo') == 'Profissional' ? 'selected' : '' }}>Profissional</option>
                         </select>
                         @error('tipo')
-                            <div class="mt-2 text-sm text-red-600">{{ $message }}</div>
+                        <div class="mt-2 text-sm text-red-600">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <!-- Email -->
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input id="email" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm"
+                        <input id="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username">
                         @error('email')
-                            <div class="mt-2 text-sm text-red-600">{{ $message }}</div>
+                        <div class="mt-2 text-sm text-red-600">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <!-- Senha -->
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-700">Senha</label>
-                        <input id="password" class="block mt-1 w-full border-gray-300 rounded-md shadow-sm"
+                        <input id="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                type="password" name="password" required autocomplete="current-password">
                         @error('password')
-                            <div class="mt-2 text-sm text-red-600">{{ $message }}</div>
+                        <div class="mt-2 text-sm text-red-600">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -67,7 +65,7 @@
                     <div class="block mb-4">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox"
-                                class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
                             <span class="ms-2 text-sm text-gray-600">Lembrar de mim</span>
                         </label>
                     </div>
@@ -92,4 +90,5 @@
 
         </div>
     </div>
+
 @endsection
