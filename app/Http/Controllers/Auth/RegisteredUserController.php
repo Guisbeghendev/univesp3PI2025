@@ -59,6 +59,12 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Criação automática do perfil
+        $user->perfil()->create([
+            'tipo' => $user->tipo, // Reaproveita o tipo já atribuído ao usuário
+            'especialidade_id' => null, // ou algum valor padrão que você quiser
+        ]);
+
         // Realiza login automaticamente após o registro
         Auth::login($user);
 

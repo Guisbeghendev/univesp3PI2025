@@ -2,19 +2,19 @@
 
 @section('title', 'Meu Perfil')
 
-{{-- conteudo da pagina --}}
+{{-- conteúdo da página --}}
 @section('content')
 
-    {{-- flexbox para centralizar o conteudo --}}
+    {{-- flexbox para centralizar o conteúdo --}}
     <div class="w-full flex justify-center items-center py-10">
 
-        {{-- card comum que envolve todas as paginas --}}
+        {{-- card comum que envolve todas as páginas --}}
         <div class="card-box">
 
-            {{-- titulo da pagina --}}
+            {{-- título da página --}}
             <h2 class="titulo-principal">Meu Perfil</h2>
 
-            {{--container que encapsula o conteudo --}}
+            {{-- container que encapsula o conteúdo --}}
             <div class="container">
 
                 <div class="grid grid-cols-1 gap-4">
@@ -48,6 +48,16 @@
                                         <span>Não enviada</span>
                                     @endif
                                 </li>
+
+                                {{-- Exibir a especialidade para usuários do tipo "profissional" --}}
+                                @if($user->tipo === 'profissional')
+                                    @php
+                                        $especialidade = \App\Models\Especialidades::find($user->perfil->especialidade_id);
+                                    @endphp
+                                    <li><strong>Especialidade:</strong>
+                                        {{ $especialidade ? $especialidade->nome : 'Não definida' }}
+                                    </li>
+                                @endif
                             </ul>
                         </section>
                     @else

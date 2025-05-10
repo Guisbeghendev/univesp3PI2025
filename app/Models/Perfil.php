@@ -20,12 +20,18 @@ class Perfil extends Model
         'biografia',
         'idiomas',
         'foto_perfil',
+        'especialidade_id',  // Campo especialidade_id adicionado
     ];
 
-    public $timestamps = true; // Permite que o Laravel gerencie os timestamps (created_at, updated_at)
+    public $timestamps = true;
 
     public function usuario()
     {
         return $this->belongsTo(User::class, 'usuario_id');
+    }
+
+    public function especialidade()
+    {
+        return $this->belongsTo(Especialidade::class, 'especialidade_id'); // Relacionamento com especialidade
     }
 }

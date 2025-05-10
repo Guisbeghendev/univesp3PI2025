@@ -18,7 +18,19 @@ class CreatePerfisTable extends Migration
             $table->text('biografia')->nullable();
             $table->string('idiomas')->nullable();
             $table->string('foto_perfil')->nullable();
+
+            // Cria a coluna, mas sem definir a foreign ainda
+            $table->unsignedBigInteger('especialidade_id')->nullable();
+
             $table->timestamps();
+        });
+
+        // Define a foreign key separadamente, após a criação da tabela
+        Schema::table('perfis', function (Blueprint $table) {
+            $table->foreign('especialidade_id')
+                ->references('id')
+                ->on('especialidades')
+                ->onDelete('set null');
         });
     }
 

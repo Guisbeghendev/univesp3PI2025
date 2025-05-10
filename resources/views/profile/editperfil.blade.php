@@ -48,9 +48,27 @@
                                 <img src="{{ asset('storage/' . $perfil->foto_perfil) }}" alt="Foto atual" class="w-20 h-20 mt-2 rounded-full">
                             @endif
                         </div>
+
+                        {{-- Campo de Especialidade visível apenas para Profissionais --}}
+                        @if(auth()->user()->tipo === 'profissional') {{-- Verifica se o usuário é profissional --}}
+                        <div>
+                            <label class="block font-semibold">Especialidade</label>
+                            <select id="especialidade" name="especialidade_id" class="input w-full">
+                                <option value="">Selecione sua especialidade</option>
+                                @foreach($especialidades as $especialidade)
+                                    <option value="{{ $especialidade->id }}" {{ old('especialidade_id', $perfil->especialidade_id) == $especialidade->id ? 'selected' : '' }}>
+                                        {{ $especialidade->nome }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @endif
+
                         <button type="submit" class="btn-padrao">Salvar Informações do Perfil</button>
                     </form>
                 </div>
+
+
 
                 <div class="bg-gray-200 p-4">
                     {{-- FORMULÁRIO 3: INFORMAÇÕES DA CONTA --}}
