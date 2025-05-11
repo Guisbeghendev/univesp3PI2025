@@ -41,6 +41,21 @@
                                     {{ $user->perfil->data_nascimento ? \Carbon\Carbon::parse($user->perfil->data_nascimento)->format('d/m/Y') : 'Não preenchido' }}
                                 </li>
                                 <li><strong>Biografia:</strong> {{ $user->perfil->biografia ?? 'Não preenchido' }}</li>
+
+                                <!-- Alteração condicional para a legenda de especialização -->
+                                <li>
+                                    <strong>
+                                        @if($user->tipo === 'aluno')
+                                            Especialidade buscada:
+                                        @elseif($user->tipo === 'profissional')
+                                            Especialidade oferecida:
+                                        @else
+                                            Especialização:
+                                        @endif
+                                    </strong>
+                                    {{ $user->perfil->especializacao ? $user->perfil->especializacao->nome : 'Não preenchido' }}
+                                </li>
+
                                 <li><strong>Foto de perfil:</strong>
                                     @if($user->perfil->foto_perfil)
                                         <img src="{{ asset('storage/' . $user->perfil->foto_perfil) }}" alt="Foto de Perfil" class="w-24 h-24 rounded-full mt-2">
@@ -53,6 +68,8 @@
                     @else
                         <p class="text-red-600 mt-4">Perfil ainda não preenchido.</p>
                     @endif
+
+
 
                     <!-- Profissionais que curtiram -->
                     @if($curtidasRecebidas->isNotEmpty())

@@ -7,12 +7,8 @@
         <div class="card-box">
             <h2 class="titulo-principal">Editar Perfil</h2>
             <div class="container space-y-10">
-
-                {{-- Grid com 1 coluna e 6 linhas --}}
                 <div class="grid grid-cols-1 gap-4">
-
                     <div class="bg-gray-200 p-4">
-                        {{-- FORMULÁRIO 1: INFORMAÇÕES DO PERFIL --}}
                         <form action="{{ route('perfil.updatePerfil') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                             @csrf
                             @method('PATCH')
@@ -41,6 +37,28 @@
                                 <label class="block font-semibold">Biografia</label>
                                 <textarea name="biografia" rows="4" class="input w-full">{{ old('biografia', $perfil->biografia) }}</textarea>
                             </div>
+
+                            <!-- Alteração condicional para a legenda de especialização -->
+                            <div>
+                                <label class="block font-semibold">
+                                    @if(Auth::user()->tipo === 'aluno')
+                                        Especialidade buscada:
+                                    @elseif(Auth::user()->tipo === 'profissional')
+                                        Especialidade oferecida:
+                                    @else
+                                        Especialização:
+                                    @endif
+                                </label>
+                                <select name="especializacao_id" class="input w-full">
+                                    <option value="">Selecione uma especialização</option>
+                                    @foreach(\App\Models\Especializacao::all() as $especializacao)
+                                        <option value="{{ $especializacao->id }}" {{ old('especializacao_id', $perfil->especializacao_id) == $especializacao->id ? 'selected' : '' }}>
+                                            {{ $especializacao->nome }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div>
                                 <label class="block font-semibold">Foto de Perfil</label>
                                 <input type="file" name="foto_perfil" class="input w-full">
@@ -48,13 +66,12 @@
                                     <img src="{{ asset('storage/' . $perfil->foto_perfil) }}" alt="Foto atual" class="w-20 h-20 mt-2 rounded-full">
                                 @endif
                             </div>
-
                             <button type="submit" class="btn-padrao">Salvar Informações do Perfil</button>
                         </form>
                     </div>
 
+                    {{-- CONTA --}}
                     <div class="bg-gray-200 p-4">
-                        {{-- FORMULÁRIO 3: INFORMAÇÕES DA CONTA --}}
                         <form action="{{ route('perfil.update') }}" method="POST" class="space-y-4">
                             @csrf
                             @method('PATCH')
@@ -64,8 +81,8 @@
                         </form>
                     </div>
 
+                    {{-- SENHA --}}
                     <div class="bg-gray-200 p-4">
-                        {{-- FORMULÁRIO 4: SENHA --}}
                         <form action="{{ route('perfil.updatePassword') }}" method="POST" class="space-y-4">
                             @csrf
                             @method('PATCH')
@@ -75,8 +92,8 @@
                         </form>
                     </div>
 
+                    {{-- DELETAR --}}
                     <div class="bg-gray-200 p-4">
-                        {{-- FORMULÁRIO 5: DELETAR CONTA --}}
                         <form action="{{ route('perfil.destroy') }}" method="POST" class="space-y-4">
                             @csrf
                             @method('DELETE')
@@ -87,17 +104,16 @@
                     </div>
 
                     <div class="bg-gray-200 p-4">
-                        {{-- BOTÃO CANCELAR --}}
                         <div class="pt-4">
                             <a href="{{ route('perfil.index') }}" class="btn-padrao">Voltar</a>
                         </div>
                     </div>
                 </div>
-                {{-- Fim da grid --}}
             </div>
         </div>
     </div>
 
+    {{-- JS Estados/Cidades --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const estadoSelect = document.getElementById('estado');
@@ -128,7 +144,6 @@
 
             function carregarCidades(estadoId) {
                 cidadeSelect.innerHTML = '<option value="">Carregando cidades...</option>';
-
                 fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`)
                     .then(response => response.json())
                     .then(cidades => {
