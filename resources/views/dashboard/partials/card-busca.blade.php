@@ -17,25 +17,18 @@
                     <div>
                         <label for="cidade" class="block font-semibold text-gray-700">Cidade</label>
                         <input type="text" name="cidade" id="cidade"
-                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
-                            placeholder="Digite a cidade">
+                               class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+                               placeholder="Digite a cidade">
                     </div>
 
                     {{-- Campo Estado --}}
                     <div>
                         <label for="estado" class="block font-semibold text-gray-700">Estado</label>
                         <input type="text" name="estado" id="estado"
-                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
-                            placeholder="Digite o estado">
+                               class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
+                               placeholder="Digite o estado">
                     </div>
 
-                    {{-- Campo Idioma --}}
-                    <div>
-                        <label for="idioma" class="block font-semibold text-gray-700">Idioma</label>
-                        <input type="text" name="idioma" id="idioma"
-                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200"
-                            placeholder="Digite o idioma">
-                    </div>
                 </div>
 
                 {{-- Botão de pesquisa --}}

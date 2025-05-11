@@ -20,7 +20,6 @@ class PesquisaController extends Controller
         // Captura os filtros opcionais
         $cidade = $request->input('cidade');
         $estado = $request->input('estado');
-        $idioma = $request->input('idioma');
 
         // Inicia a query filtrando pelo tipo do usuário relacionado (profissional ou aluno)
         $query = Perfil::whereHas('usuario', function ($q) use ($tipoAlvo) {
@@ -36,30 +35,26 @@ class PesquisaController extends Controller
             $query->where('estado', 'like', "%{$estado}%");
         }
 
-        if ($idioma) {
-            $query->where('idiomas', 'like', "%{$idioma}%");
-        }
-
         // Executa a query para buscar os resultados, carregando o relacionamento com o usuário
         $resultados = $query->with('usuario')->get();
 
         // Para cada resultado, calcula os dados de avaliação
         foreach ($resultados as $resultado) {
-            // Calcula a soma das notas (total de pontos recebidos)
             $totalPontos = Avaliacao::where('profissional_id', $resultado->usuario->id)->sum('nota');
-            // Conta a quantidade de avaliações (total de votos recebidos)
             $quantidadeAvaliacoes = Avaliacao::where('profissional_id', $resultado->usuario->id)->count();
 
             // Calcula a média das avaliações
-            $mediaAvaliacoes = $quantidadeAvaliacoes > 0 ? round($totalPontos / $quantidadeAvaliacoes, 1) : 'Sem avaliações';
+            $mediaAvaliacoes = $quantidadeAvaliacoes > 0
+                ? round($totalPontos / $quantidadeAvaliacoes, 1)
+                : 'Sem avaliações';
 
             // Armazena os dados de avaliação
-            $resultado->totalPontos = $totalPontos;             // Total de pontos
-            $resultado->quantidadeAvaliacoes = $quantidadeAvaliacoes; // Quantidade de avaliações
-            $resultado->mediaAvaliacoes = $mediaAvaliacoes;     // Média das avaliações
+            $resultado->totalPontos = $totalPontos;
+            $resultado->quantidadeAvaliacoes = $quantidadeAvaliacoes;
+            $resultado->mediaAvaliacoes = $mediaAvaliacoes;
         }
 
-        // Passando para a view os resultados já calculados
+        // Passando para a view apenas os resultados
         return view('pesquisa.resultados', compact('resultados'));
     }
 
@@ -71,14 +66,15 @@ class PesquisaController extends Controller
         // Calcula o total de pontos, a quantidade de avaliações e a média de avaliações para o perfil
         $totalPontos = Avaliacao::where('profissional_id', $usuario->usuario_id)->sum('nota');
         $quantidadeAvaliacoes = Avaliacao::where('profissional_id', $usuario->usuario_id)->count();
-        $mediaAvaliacoes = $quantidadeAvaliacoes > 0 ? round($totalPontos / $quantidadeAvaliacoes, 1) : 'Sem avaliações';
+        $mediaAvaliacoes = $quantidadeAvaliacoes > 0
+            ? round($totalPontos / $quantidadeAvaliacoes, 1)
+            : 'Sem avaliações';
 
-        // Passando os dados para a view do perfil
         return view('pesquisa.perfilresult', [
             'perfil' => $usuario,
-            'totalPontos' => $totalPontos,  // Total de pontos recebidos
-            'quantidadeAvaliacoes' => $quantidadeAvaliacoes, // Total de votos recebidos
-            'mediaAvaliacoes' => $mediaAvaliacoes, // Média das avaliações
+            'totalPontos' => $totalPontos,
+            'quantidadeAvaliacoes' => $quantidadeAvaliacoes,
+            'mediaAvaliacoes' => $mediaAvaliacoes,
         ]);
     }
 }

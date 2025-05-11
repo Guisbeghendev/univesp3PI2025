@@ -85,7 +85,8 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::get('/pesquisa', [PesquisaController::class, 'pesquisar'])->name('pesquisa.resultados');
-    Route::get('/perfil-resultado/{id}', [ProfileController::class, 'verPerfilResultado'])->name('perfil.resultado');
+    Route::get('/perfil-resultado/{id}', [PesquisaController::class, 'exibirPerfil'])->name('perfil.resultado');
+
 
     /*
     |--------------------------------------------------------------------------

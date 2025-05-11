@@ -20,7 +20,7 @@ class Perfil extends Model
         'biografia',
         'idiomas',
         'foto_perfil',
-        'especialidade_id',  // Campo especialidade_id adicionado
+        'especializacao_id',  // Corrigido: de especialidade_id para especializacao_id
     ];
 
     public $timestamps = true;
@@ -30,8 +30,8 @@ class Perfil extends Model
         return $this->belongsTo(User::class, 'usuario_id');
     }
 
-    public function especialidade()
+    public function especializacao()
     {
-        return $this->belongsTo(Especialidade::class, 'especialidade_id'); // Relacionamento com especialidade
+        return $this->belongsTo(Especializacao::class, 'especializacao_id'); // Corrigido relacionamento
     }
 }

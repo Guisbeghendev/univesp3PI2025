@@ -4,14 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\HasOne; // Importando o tipo de relacionamento correto
-use App\Models\DadosSaude; // Importando a classe DadosSaude
-use Illuminate\Database\Eloquent\Relations\HasMany; // Importando HasMany
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\DadosSaude;
+use App\Models\Especializacao;
 
-/**
- * @property-read \App\Models\DadosSaude|null $dadosSaude
- * @method static \Illuminate\Database\Eloquent\Builder|static dadosSaude()
- */
 class User extends Authenticatable
 {
     use HasFactory;
@@ -24,7 +22,7 @@ class User extends Authenticatable
         'password',
         'tipo',
         'data_cadastro',
-        'chave_acesso', // ✅ Adicionado o campo chave_acesso ao $fillable
+        'chave_acesso',
     ];
 
     public $timestamps = true;
@@ -88,6 +86,12 @@ class User extends Authenticatable
 
     public function dadosSaude(): HasOne
     {
-        return $this->hasOne(DadosSaude::class, 'user_id'); // Explicitamente declara a chave estrangeira 'user_id'
+        return $this->hasOne(DadosSaude::class, 'user_id');
+    }
+
+    // ✅ Relacionamento com especializacoes
+    public function especializacoes(): BelongsToMany
+    {
+        return $this->belongsToMany(Especializacao::class, 'user_especializacao');
     }
 }

@@ -11,7 +11,6 @@ use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Conversa;
 use App\Models\Avaliacao;
-use App\Models\Especialidades;  // Correção na importação de Especialidades (plural)
 
 class ProfileController extends Controller
 {
@@ -132,23 +131,18 @@ class ProfileController extends Controller
         $user = Auth::user();
         $perfil = $user->perfil;
 
-        // Carregando as especialidades para os profissionais
-        $especialidades = Especialidades::all();  // Corrigido aqui para o plural
-
         return view('profile.editperfil', [
             'layout' => 'layouts.app',
             'perfil' => $perfil,
-            'especialidades' => $especialidades,  // Passando as especialidades para a view
         ]);
     }
 
-    // Método para atualizar os detalhes do perfil (com especialidades para profissionais)
+    // Método para atualizar os detalhes do perfil
     public function atualizarPerfil(Request $request): RedirectResponse
     {
         $user = Auth::user();
         $perfil = $user->perfil;
 
-        // Validação dos campos
         $data = $request->validate([
             'nome' => 'nullable|string|max:255',
             'cidade' => 'nullable|string|max:100',
@@ -156,10 +150,8 @@ class ProfileController extends Controller
             'data_nascimento' => 'nullable|date',
             'biografia' => 'nullable|string',
             'foto_perfil' => 'nullable|image|max:2048',
-            'especialidade_id' => 'nullable|exists:especialidades,id',  // Valida a especialidade apenas se existir no banco
         ]);
 
-        // Atualização da foto de perfil, se enviada
         if ($request->hasFile('foto_perfil')) {
             if ($perfil->foto_perfil) {
                 Storage::disk('public')->delete($perfil->foto_perfil);
@@ -167,12 +159,6 @@ class ProfileController extends Controller
             $data['foto_perfil'] = $request->file('foto_perfil')->store('fotos_perfil', 'public');
         }
 
-        // Se o usuário for profissional, ele pode ter uma especialidade associada
-        if ($user->tipo === 'profissional' && $request->has('especialidade_id')) {
-            $data['especialidade_id'] = $request->input('especialidade_id');
-        }
-
-        // Atualizando o perfil com os dados validados
         $perfil->update($data);
 
         return redirect()->route('perfil.index')->with('success', 'Perfil atualizado com sucesso!');

@@ -48,16 +48,6 @@
                                         <span>Não enviada</span>
                                     @endif
                                 </li>
-
-                                {{-- Exibir a especialidade para usuários do tipo "profissional" --}}
-                                @if($user->tipo === 'profissional')
-                                    @php
-                                        $especialidade = \App\Models\Especialidades::find($user->perfil->especialidade_id);
-                                    @endphp
-                                    <li><strong>Especialidade:</strong>
-                                        {{ $especialidade ? $especialidade->nome : 'Não definida' }}
-                                    </li>
-                                @endif
                             </ul>
                         </section>
                     @else

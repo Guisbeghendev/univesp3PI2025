@@ -2,19 +2,19 @@
 
 @section('title', 'Resultados da Pesquisa')
 
-{{-- conteudo da pagina --}}
+{{-- Conteúdo da página --}}
 @section('content')
 
-    {{-- flexbox para centralizar o conteudo --}}
+    {{-- Flexbox para centralizar o conteúdo --}}
     <div class="w-full flex justify-center items-center py-10">
 
-        {{-- card comum que envolve todas as paginas --}}
+        {{-- Card comum que envolve todas as páginas --}}
         <div class="card-box">
 
-            {{-- titulo da pagina --}}
+            {{-- Título da página --}}
             <h2 class="titulo-principal">Resultados da Pesquisa</h2>
 
-            {{--container que encapsula o conteudo --}}
+            {{-- Container que encapsula o conteúdo --}}
             <div class="container">
 
                 <!-- Filtros aplicados -->
@@ -23,7 +23,6 @@
                     <div>
                         <span class="font-bold">Cidade:</span> {{ request('cidade') ?? 'Não especificada' }}
                         <span class="ml-4"><span class="font-bold">Estado:</span> {{ request('estado') ?? 'Não especificado' }}</span>
-                        <span class="ml-4"><span class="font-bold">Idioma:</span> {{ request('idioma') ?? 'Não especificado' }}</span>
                     </div>
                 </div>
 
@@ -41,7 +40,6 @@
                             <h3 class="text-lg font-semibold text-blue-600">{{ $resultado->usuario->name }}</h3>
                             <p><strong>Cidade:</strong> {{ $resultado->cidade }}</p>
                             <p><strong>Estado:</strong> {{ $resultado->estado }}</p>
-                            <p><strong>Idioma:</strong> {{ $resultado->idiomas }}</p>
 
                             <!-- Exibindo a média de avaliações -->
                             <p><strong>Avaliações:</strong>
@@ -66,7 +64,6 @@
                 @if($resultados->isEmpty())
                     <p class="text-center text-gray-500">Nenhum resultado encontrado.</p>
                 @endif
-
 
             </div>
 
