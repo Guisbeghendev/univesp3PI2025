@@ -29,6 +29,19 @@
                                placeholder="Digite o estado">
                     </div>
 
+                    {{-- Campo Especialização --}}
+                    <div>
+                        <label for="especializacao_id" class="block font-semibold text-gray-700">Especialização</label>
+                        <select name="especializacao_id" id="especializacao_id" class="w-full border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-blue-200">
+                            <option value="">Selecione uma especialização</option>
+                            @foreach(\App\Models\Especializacao::all() as $especializacao)
+                                <option value="{{ $especializacao->id }}" {{ old('especializacao_id') == $especializacao->id ? 'selected' : '' }}>
+                                    {{ $especializacao->nome }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                 </div>
 
                 {{-- Botão de pesquisa --}}

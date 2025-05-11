@@ -41,6 +41,9 @@
                             <p><strong>Cidade:</strong> {{ $resultado->cidade }}</p>
                             <p><strong>Estado:</strong> {{ $resultado->estado }}</p>
 
+                            <!-- Exibindo a Especialização -->
+                            <p><strong>Especialização:</strong> {{ $resultado->especializacao->nome ?? 'Não especificada' }}</p>
+
                             <!-- Exibindo a média de avaliações -->
                             <p><strong>Avaliações:</strong>
                                 @if($resultado->mediaAvaliacoes != 'Sem avaliações')
@@ -69,4 +72,5 @@
 
         </div>
     </div>
+
 @endsection

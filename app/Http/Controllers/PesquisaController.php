@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Perfil;
 use App\Models\Avaliacao;
+use App\Models\Especializacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,7 @@ class PesquisaController extends Controller
         // Captura os filtros opcionais
         $cidade = $request->input('cidade');
         $estado = $request->input('estado');
+        $especializacao_id = $request->input('especializacao_id');  // Novo campo de especialização
 
         // Inicia a query filtrando pelo tipo do usuário relacionado (profissional ou aluno)
         $query = Perfil::whereHas('usuario', function ($q) use ($tipoAlvo) {
@@ -35,8 +37,12 @@ class PesquisaController extends Controller
             $query->where('estado', 'like', "%{$estado}%");
         }
 
+        if ($especializacao_id) {  // Filtro por especialização
+            $query->where('especializacao_id', $especializacao_id);
+        }
+
         // Executa a query para buscar os resultados, carregando o relacionamento com o usuário
-        $resultados = $query->with('usuario')->get();
+        $resultados = $query->with('usuario', 'especializacao')->get();
 
         // Para cada resultado, calcula os dados de avaliação
         foreach ($resultados as $resultado) {

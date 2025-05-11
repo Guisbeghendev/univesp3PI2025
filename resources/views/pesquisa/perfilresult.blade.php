@@ -2,19 +2,19 @@
 
 @section('title', 'Perfil do Usuário na Pesquisa')
 
-{{-- conteudo da pagina --}}
+{{-- Conteúdo da página --}}
 @section('content')
 
-    {{-- flexbox para centralizar o conteudo --}}
+    {{-- Flexbox para centralizar o conteúdo --}}
     <div class="w-full flex justify-center items-center py-10">
 
-        {{-- card comum que envolve todas as paginas --}}
+        {{-- Card comum que envolve todas as páginas --}}
         <div class="card-box">
 
-            {{-- titulo da pagina --}}
+            {{-- Título da página --}}
             <h2 class="titulo-principal">{{ $perfil->usuario->name }}</h2>
 
-            {{--container que encapsula o conteudo --}}
+            {{-- Container que encapsula o conteúdo --}}
             <div class="container">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -30,6 +30,9 @@
                             Não informada
                         @endif
                     </p>
+
+                    <!-- Exibindo a especialização -->
+                    <p><strong>Especialização:</strong> {{ $perfil->especializacao->nome ?? 'Não especificada' }}</p>
                 </div>
 
                 <div class="mt-4">
@@ -64,21 +67,21 @@
                 </div>
 
                 @if(auth()->id() != $perfil->usuario->id)
-                <div class="mt-6 text-center space-x-4">
-                    <!-- Iniciar Chat -->
-                    <a href="{{ route('chat.iniciar', ['id' => $perfil->usuario->id]) }}" class="btn-padrao">
-                        Iniciar Chat
-                    </a>
+                    <div class="mt-6 text-center space-x-4">
+                        <!-- Iniciar Chat -->
+                        <a href="{{ route('chat.iniciar', ['id' => $perfil->usuario->id]) }}" class="btn-padrao">
+                            Iniciar Chat
+                        </a>
 
-                    <!-- Iniciar Contrato -->
-                    <form action="{{ route('contratos.criar') }}" method="POST" class="inline">
-                        @csrf
-                        <input type="hidden" name="destinatario_id" value="{{ $perfil->usuario->id }}">
-                        <button type="submit" class="btn-padrao">
-                            Iniciar Contrato
-                        </button>
-                    </form>
-                </div>
+                        <!-- Iniciar Contrato -->
+                        <form action="{{ route('contratos.criar') }}" method="POST" class="inline">
+                            @csrf
+                            <input type="hidden" name="destinatario_id" value="{{ $perfil->usuario->id }}">
+                            <button type="submit" class="btn-padrao">
+                                Iniciar Contrato
+                            </button>
+                        </form>
+                    </div>
                 @endif
 
                 <div class="mt-6 text-center space-x-4">
@@ -88,9 +91,9 @@
                     </a>
                 </div>
 
-
             </div>
 
         </div>
     </div>
+
 @endsection
